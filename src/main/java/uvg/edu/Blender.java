@@ -55,6 +55,7 @@ public class Blender implements IBlender {
             this.powerStatus = 1;
         } else {
             this.powerStatus = 0;
+            this.speed = 0;
         }
 
         return this.powerStatus;
