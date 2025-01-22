@@ -1,17 +1,93 @@
 package uvg.edu;
 
+import java.util.Scanner;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        
+        Scanner scanner = new Scanner(System.in);
+        IBlender blender = new Blender(); 
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        int option;
+        do {
+            System.out.println("\n--- Menú de Control de Licuadora ---");
+            System.out.println("1. Encender la licuadora");
+            System.out.println("2. Apagar la licuadora");
+            System.out.println("3. Llenar la licuadora");
+            System.out.println("4. Agregar ingrediente");
+            System.out.println("5. Incrementar velocidad");
+            System.out.println("6. Disminuir velocidad");
+            System.out.println("7. Consultar velocidad actual");
+            System.out.println("8. Consultar si está llena");
+            System.out.println("9. Consultar si está encendida");
+            System.out.println("10. Salir");
+            System.out.print("Seleccione una opción: ");
+            option = scanner.nextInt();
+            scanner.nextLine(); // Consumir el salto de línea
+
+            switch (option) {
+                case 1:
+                    blender.isOn();
+                    System.out.println("La licuadora está encendida.");
+                    break;
+                case 2:
+                    blender.isOff();
+                    System.out.println("La licuadora está apagada.");
+                    break;
+                case 3:
+                    if (blender.isFull()) {
+                        System.out.println("La licuadora ya está llena.");
+                    } else {
+                        blender.fill();
+                        System.out.println("La licuadora ha sido llenada.");
+                    }
+                    break;
+                case 4:
+                    if (blender.isFull()) {
+                        System.out.println("No se pueden agregar más ingredientes, la licuadora está llena.");
+                    } else {
+                        System.out.print("Ingrese el ingrediente a agregar: ");
+                        String ingredient = scanner.nextLine();
+                        blender.addIngredient(ingredient);
+                        System.out.println("Se ha agregado " + ingredient + " a la licuadora.");
+                    }
+                    break;
+                case 5:
+                    blender.increaseSpeed();
+                    System.out.println("Velocidad incrementada. Velocidad actual: " + blender.getSpeed());
+                    break;
+                case 6:
+                    blender.decreaseSpeed();
+                    System.out.println("Velocidad disminuida. Velocidad actual: " + blender.getSpeed());
+                    break;
+                case 7:
+                    System.out.println("Velocidad actual: " + blender.getSpeed());
+                    break;
+                case 8:
+                    if (blender.isFull()) {
+                        System.out.println("La licuadora está llena.");
+                    } else {
+                        System.out.println("La licuadora no está llena.");
+                    }
+                    break;
+                case 9:
+                    if (blender.getState() == true) {
+                        System.out.println("La licuadora está encendida.");
+                    } else {
+                        System.out.println("La licuadora está apagada.");
+                    }
+                    break;
+                case 10:
+                    System.out.println("Saliendo del programa. ¡Adiós!");
+                    break;
+                default:
+                    System.out.println("Opción inválida. Intente nuevamente.");
+                    break;
+            }
+        } while (option != 10);
+
+        scanner.close();
     }
 }
