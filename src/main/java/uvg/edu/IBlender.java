@@ -1,70 +1,82 @@
 package uvg.edu;
 
+/**
+ * Interface representing a Blender with various functionalities.
+ * Javier Alvarado - 24546
+ * Jonathan Tubac - 24484
+ * Juan Montenegro - 24750
+ */
 public interface IBlender {
+
+    /**
+     * Checks the power status of the blender.
+     *
+     * @return byte 1 if the blender is on, 0 if it is off.
+     */
     public byte checkPowerStatus();
 
+    /**
+     * Switches the power status of the blender.
+     *
+     * @return byte 1 if the blender is turned on, 0 if it is turned off.
+     */
     public byte switchPowerStatus();
 
     /**
-     * Method to fill the blender with a product.
+     * Fills the blender with a specified product and amount.
      *
-     * @param prod A string representing the product the user is filling the
-     *             blender with.
-     * @return None
-     * This method doesn't return any value as it is simply used to fill the
-     * blender with the specified product.
-     **/
+     * @param prod A string representing the product the user is filling the blender with.
+     * @param ml A float representing the amount in milliliters to fill the blender with.
+     */
     public void fillBlender(String prod, float ml);
 
+    /**
+     * Gets the current capacity of the blender.
+     *
+     * @return float The current capacity of the blender in milliliters.
+     */
     public float actualCapacity();
 
+    /**
+     * Fills the blender with a specified product to its maximum capacity.
+     *
+     * @param prod A string representing the product the user is filling the blender with.
+     */
     public void fillBlender(String prod);
 
     /**
-     * Method to increase the speed of the blender.
-     *
-     * @return None
-     * This method increases the speed of the blender by one unit.
-     * No value is returned since the operation modifies the internal state of
-     * the blender.
-     **/
+     * Increases the speed of the blender by one unit.
+     */
     public void increaseSpeed();
 
     /**
-     * Method to decrease the speed of the blender.
-     *
-     * @return None
-     * This method decreases the speed of the blender by one unit.
-     * No value is returned since the operation modifies the internal state of
-     * the blender.
-     **/
+     * Decreases the speed of the blender by one unit.
+     */
     public void decreaseSpeed();
 
     /**
-     * Method to check the current speed of the blender.
+     * Checks the current speed of the blender.
      *
      * @return byte The current speed of the blender.
-     * This method returns the current speed of the blender as a byte value.
-     **/
+     */
     public byte checkSpeed();
 
     /**
-     * Method to check if the blender is full.
+     * Checks if the blender is full.
      *
      * @return boolean True if the blender is full, false otherwise.
-     * This method checks whether the blender has reached its maximum capacity.
-     **/
+     */
     public boolean isFull();
 
     /**
-     * Method to empty the blender.
-     *
-     * @return None
-     * This method empties the contents of the blender.
-     * No value is returned since the operation modifies the internal state of
-     * the blender.
-     **/
+     * Empties the contents of the blender.
+     */
     public void emptyBlender();
 
+    /**
+     * Empties a specified amount from the blender.
+     *
+     * @param ml A float representing the amount in milliliters to empty from the blender.
+     */
     public void emptyBlender(float ml);
 }
