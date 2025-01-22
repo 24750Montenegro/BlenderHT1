@@ -12,6 +12,9 @@ public interface IBlender {
      */
     public boolean isOn();
 
+    
+    public boolean empty();
+
     public boolean isOff();
     /**
      * Checks if the blender is full.

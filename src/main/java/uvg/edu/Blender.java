@@ -41,7 +41,10 @@ public class Blender implements IBlender {
     public void fill() {
         this.full = true;
     }
-
+    
+    public boolean empty(){
+        return this.full = false;
+    }
     public int getSpeed() {
         return this.speed;
     }
