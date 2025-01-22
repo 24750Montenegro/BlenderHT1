@@ -1,3 +1,11 @@
+/**
+ * This Java class contains JUnit tests for a Blender implementation, testing its power status, filling
+ * capacity, and speed control functionalities.
+ * 
+ * Javier Alvarado - 24546
+ * Jonathan Tubac - 24484
+ * Juan Montenegro - 24750
+ */
 package uvg.edu;
 
 import static org.junit.Assert.assertEquals;
@@ -13,6 +21,7 @@ public class BlenderTest {
     IBlender blender = new Blender();
     @Test
     public void Encender() {
+        
         assertEquals(0, blender.checkPowerStatus());
         blender.switchPowerStatus();
         assertEquals(1, blender.checkPowerStatus());
