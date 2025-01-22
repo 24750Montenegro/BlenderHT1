@@ -14,10 +14,14 @@ public class Blender implements IBlender {
     }
 
     public boolean isOn() {
-        this.on = !on;
+        this.on = true;
         return on;
     }
 
+    public boolean isOff(){
+        this.on = false;
+        return on;
+    }
     public boolean isFull() {
         return this.full;
     }
@@ -37,8 +41,16 @@ public class Blender implements IBlender {
     public void fill() {
         this.full = true;
     }
-
+    
+    public boolean empty(){
+        return this.full = false;
+    }
     public int getSpeed() {
         return this.speed;
+    }
+
+    @Override
+    public boolean getState() {
+        return on;
     }
 }

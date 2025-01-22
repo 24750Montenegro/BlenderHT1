@@ -12,6 +12,10 @@ public interface IBlender {
      */
     public boolean isOn();
 
+    
+    public boolean empty();
+
+    public boolean isOff();
     /**
      * Checks if the blender is full.
      *
@@ -47,4 +51,6 @@ public interface IBlender {
      * @return the current speed of the blender.
      */
     public int getSpeed();
+
+    public boolean getState();
 }
