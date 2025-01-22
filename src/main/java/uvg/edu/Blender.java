@@ -1,78 +1,91 @@
 package uvg.edu;
 
 public class Blender implements IBlender {
-    private boolean on;
-    private boolean full;
-    private String ingredient;
-    private int speed;
+
+    private byte powerStatus;
+    private byte speed;
+    private float capacity;
+    private float actualCapacity;
 
     public Blender() {
-        this.on = false;
-        this.full = false;
-        this.ingredient = "";
+        this.powerStatus = 0;
         this.speed = 0;
-    }
-
-    @Override
-    public void onOff() {
-        this.on = !this.on;
-    }
-
-    @Override
-    public boolean isOn() {
-        return on;
+        this.capacity = 1000;
+        this.actualCapacity = 0;
     }
 
     @Override
     public boolean isFull() {
-        return this.full;
+        return this.actualCapacity == this.capacity;
     }
 
     @Override
-    public void addIngredient(String ingredient) {
-        this.ingredient = ingredient;
+    public byte checkPowerStatus() {
+        return this.powerStatus;
+    }
+
+    @Override
+    public byte switchPowerStatus() {
+        this.powerStatus = (byte) (this.powerStatus == 0 ? 1 : 0);
+        return this.powerStatus;
+    }
+
+    @Override
+    public void fillBlender(String prod, float ml) {
+        if (this.actualCapacity + ml <= this.capacity) {
+            this.actualCapacity += ml;
+        } else {
+            System.out.println("No se puede llenar la licuadora con esa cantidad de producto.");
+        }
+    }
+
+    @Override
+    public float actualCapacity() {
+        return this.actualCapacity;
+    }
+
+    @Override
+    public void fillBlender(String prod) {
+        this.fillBlender(prod, 100);
     }
 
     @Override
     public void increaseSpeed() {
-        if(this.speed <= 10){
+        if (this.speed < 10) {
             this.speed++;
+        } else {
+            System.out.println("La licuadora ya está a máxima velocidad.");
         }
     }
 
     @Override
     public void decreaseSpeed() {
-        if (this.speed >= 0){
+        if (this.speed > 0) {
             this.speed--;
+        } else {
+            System.out.println("La licuadora ya está a mínima velocidad.");
         }
     }
 
     @Override
-    public void fill() {
-        if(this.speed == 0){
-            this.full = true;
-        }else {
-            this.full = false;
-        }
-
-    }
-
-    @Override
-    public boolean empty(){
-        if(this.speed == 0){
-            return this.full = false;
-        }else{
-            return this.full = true;
-        }
-    }
-
-    @Override
-    public int getSpeed() {
+    public byte checkSpeed() {
         return this.speed;
     }
 
     @Override
-    public boolean getState() {
-        return on;
+    public void emptyBlender() {
+        this.actualCapacity = 0;
     }
+
+    @Override
+    public void emptyBlender(float ml) {
+        if (this.actualCapacity - ml >= 0) {
+            this.actualCapacity -= ml;
+        } else {
+            System.out.println("No se puede vaciar la licuadora con esa cantidad de producto.");
+        }
+    }
+
+
 }
+
