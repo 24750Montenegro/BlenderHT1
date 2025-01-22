@@ -11,91 +11,92 @@ public class Main {
         IBlender blender = new Blender();
 
         int option;
+        boolean salir  = false;
         do {
             System.out.println("\n--- Menú de Control de Licuadora ---");
-            System.out.println("1. Encender la licuadora");
-            System.out.println("2. Apagar la licuadora");
-            System.out.println("3. Vaciar licuadora");
-            System.out.println("4. Llenar la licuadora");
-            System.out.println("5. Agregar ingrediente");
-            System.out.println("6. Incrementar velocidad");
-            System.out.println("7. Disminuir velocidad");
-            System.out.println("8. Consultar velocidad actual");
-            System.out.println("9. Consultar si está llena");
-            System.out.println("10. Consultar si está encendida");
-            System.out.println("11. Salir");
-            System.out.print("Seleccione una opción: ");
-            option = scanner.nextInt();
-            scanner.nextLine(); // Consumir el salto de línea
 
-            switch (option) {
-                case 1:
-                    blender.isOn();
-                    System.out.println("La licuadora está encendida.");
-                    break;
-                case 2:
-                    blender.isOff();
-                    System.out.println("La licuadora está apagada.");
-                    break;
-                case 3:
-                    if (blender.isFull() == false) {
-                        System.out.println("La licuadora ya está vacia.");
-                    } else {
-                        blender.empty();
-                        System.out.println("La licuadora se ha vaciado.");
-                    }
-                    break;
-                case 4:
-                    if (blender.isFull()) {
-                        System.out.println("La licuadora ya está llena.");
-                    } else {
-                        blender.fill();
-                        System.out.println("La licuadora ha sido llenada.");
-                    }
-                    break;
-                case 5:
-                    if (blender.isFull()) {
-                        System.out.println("No se pueden agregar más ingredientes, la licuadora está llena.");
-                    } else {
-                        System.out.print("Ingrese el ingrediente a agregar: ");
-                        String ingredient = scanner.nextLine();
-                        blender.addIngredient(ingredient);
-                        System.out.println("Se ha agregado " + ingredient + " a la licuadora.");
-                    }
-                    break;
-                case 6:
-                    blender.increaseSpeed();
-                    System.out.println("Velocidad incrementada. Velocidad actual: " + blender.getSpeed());
-                    break;
-                case 7:
-                    blender.decreaseSpeed();
-                    System.out.println("Velocidad disminuida. Velocidad actual: " + blender.getSpeed());
-                    break;
-                case 8:
-                    System.out.println("Velocidad actual: " + blender.getSpeed());
-                    break;
-                case 9:
-                    if (blender.isFull()) {
-                        System.out.println("La licuadora está llena.");
-                    } else {
-                        System.out.println("La licuadora no está llena.");
-                    }
-                    break;
-                case 10:
-                    if (blender.getState() == true) {
-                        System.out.println("La licuadora está encendida.");
-                    } else {
-                        System.out.println("La licuadora está apagada.");
-                    }
-                    break;
-                case 11:
-                    System.out.println("Saliendo del programa. ¡Adiós!");
-                    break;
-                default:
+
+
+            if(!blender.isOn()){
+                System.out.println("La licuadora está apagada, por favor enciendala para continuar.");
+                System.out.println("1. Encender la licuadora");
+                System.out.println("2. Salir");
+                System.out.print("Seleccione una opción: ");
+                option = scanner.nextInt();
+                if (option == 1){
+                    blender.onOff();
+                    System.out.println("La licuadora se ha encendido.");
+                } else if (option == 2) {
+                    System.out.println("Saliendo...");
+                    salir = true;
+                }else{
                     System.out.println("Opción inválida. Intente nuevamente.");
-                    break;
+                }
+            }else{
+                System.out.println("1. Vaciar licuadora");
+                System.out.println("2. Llenar la licuadora");
+                System.out.println("3. Incrementar velocidad");
+                System.out.println("4. Disminuir velocidad");
+                System.out.println("5. Consultar velocidad actual");
+                System.out.println("6. Consultar si está llena");
+                System.out.println("7. Apagar");
+                System.out.print("Seleccione una opción: ");
+                option = scanner.nextInt();
+                scanner.nextLine(); // Consumir el salto de línea
+
+                switch (option) {
+                    case 1:
+                        if (blender.isFull() == false) {
+                            System.out.println("La licuadora ya está vacia.");
+                        } else {
+                            if(!blender.empty()){
+                                System.out.println("La licuadora se ha vaciado.");
+                            }else{
+                                System.out.println("La licuadora no se puede vaciar mientras está en uso.");
+                            }
+                        }
+                        break;
+                    case 2:
+                        if (blender.isFull()) {
+                            System.out.println("La licuadora ya está llena.");
+                        } else {
+                            if (blender.getSpeed() > 0) {
+                                System.out.println("La licuadora no se puede llenar mientras está en uso.");
+                            } else {
+                                blender.fill();
+                                System.out.println("La licuadora ha sido llenada.");
+                            }
+                        }
+                        break;
+                    case 3:
+                        blender.increaseSpeed();
+                        System.out.println("Velocidad incrementada. Velocidad actual: " + blender.getSpeed());
+                        break;
+                    case 4:
+                        blender.decreaseSpeed();
+                        System.out.println("Velocidad disminuida. Velocidad actual: " + blender.getSpeed());
+                        break;
+                    case 5:
+                        System.out.println("Velocidad actual: " + blender.getSpeed());
+                        break;
+                    case 6:
+                        if (blender.isFull()) {
+                            System.out.println("La licuadora está llena.");
+                        } else {
+                            System.out.println("La licuadora no está llena.");
+                        }
+                        break;
+                    case 7:
+                        blender.onOff();
+                        System.out.println("La licuadora se ha apagado.");
+                        break;
+                    default:
+                        System.out.println("Opción inválida. Intente nuevamente.");
+                        break;
+                }
             }
-        } while (option != 11);
+
+        } while (!salir);
 
         scanner.close();
     }

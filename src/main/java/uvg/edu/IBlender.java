@@ -5,17 +5,12 @@ package uvg.edu;
  */
 public interface IBlender {
 
-    /**
-     * Checks if the blender is on.
-     *
-     * @return true if the blender is on, false otherwise.
-     */
-    public boolean isOn();
+    public void onOff();
 
+    public boolean isOn();
     
     public boolean empty();
 
-    public boolean isOff();
     /**
      * Checks if the blender is full.
      *

@@ -13,38 +13,60 @@ public class Blender implements IBlender {
         this.speed = 0;
     }
 
+    @Override
+    public void onOff() {
+        this.on = !this.on;
+    }
+
+    @Override
     public boolean isOn() {
-        this.on = true;
         return on;
     }
 
-    public boolean isOff(){
-        this.on = false;
-        return on;
-    }
+    @Override
     public boolean isFull() {
         return this.full;
     }
 
+    @Override
     public void addIngredient(String ingredient) {
         this.ingredient = ingredient;
     }
 
+    @Override
     public void increaseSpeed() {
-        this.speed++;
+        if(this.speed <= 10){
+            this.speed++;
+        }
     }
 
+    @Override
     public void decreaseSpeed() {
-        this.speed--;
+        if (this.speed >= 0){
+            this.speed--;
+        }
     }
 
+    @Override
     public void fill() {
-        this.full = true;
+        if(this.speed == 0){
+            this.full = true;
+        }else {
+            this.full = false;
+        }
+
     }
-    
+
+    @Override
     public boolean empty(){
-        return this.full = false;
+        if(this.speed == 0){
+            return this.full = false;
+        }else{
+            return this.full = true;
+        }
     }
+
+    @Override
     public int getSpeed() {
         return this.speed;
     }
