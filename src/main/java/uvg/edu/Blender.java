@@ -26,16 +26,23 @@ public class Blender implements IBlender {
 
     @Override
     public byte switchPowerStatus() {
-        this.powerStatus = (byte) (this.powerStatus == 0 ? 1 : 0);
+        if (this.powerStatus == 0) {
+            this.powerStatus = 1;
+        } else {
+            this.powerStatus = 0;
+        }
+
         return this.powerStatus;
     }
 
     @Override
     public void fillBlender(String prod, float ml) {
-        if (this.actualCapacity + ml <= this.capacity) {
-            this.actualCapacity += ml;
-        } else {
-            System.out.println("No se puede llenar la licuadora con esa cantidad de producto.");
+        if (this.speed == 0) {
+            if (this.actualCapacity + ml <= this.capacity) {
+                this.actualCapacity += ml;
+            } else {
+                System.out.println("No se puede llenar la licuadora con esa cantidad de producto.");
+            }
         }
     }
 
@@ -46,15 +53,15 @@ public class Blender implements IBlender {
 
     @Override
     public void fillBlender(String prod) {
-        this.fillBlender(prod, 100);
+        if (this.speed == 0) {
+            this.fillBlender(prod, capacity - actualCapacity);
+        }
     }
 
     @Override
     public void increaseSpeed() {
         if (this.speed < 10) {
             this.speed++;
-        } else {
-            System.out.println("La licuadora ya está a máxima velocidad.");
         }
     }
 
@@ -62,8 +69,6 @@ public class Blender implements IBlender {
     public void decreaseSpeed() {
         if (this.speed > 0) {
             this.speed--;
-        } else {
-            System.out.println("La licuadora ya está a mínima velocidad.");
         }
     }
 
@@ -74,15 +79,19 @@ public class Blender implements IBlender {
 
     @Override
     public void emptyBlender() {
-        this.actualCapacity = 0;
+        if(this.speed == 0) {
+            this.actualCapacity = 0;
+        }
     }
 
     @Override
     public void emptyBlender(float ml) {
-        if (this.actualCapacity - ml >= 0) {
-            this.actualCapacity -= ml;
-        } else {
-            System.out.println("No se puede vaciar la licuadora con esa cantidad de producto.");
+        if (this.speed == 0) {
+            if (ml > this.actualCapacity) {
+                this.actualCapacity = 0;
+            } else {
+                this.actualCapacity -= ml;
+            }
         }
     }
 
